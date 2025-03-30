@@ -1,0 +1,1187 @@
+{
+  "tables": [
+    {
+      "name": "vestibulares",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "ano",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "semestre",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        }
+      ],
+      "indices": [],
+      "id": 0,
+      "x": 1386.3543599726088,
+      "y": -242.20599408919185
+    },
+    {
+      "name": "cursos",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "nome",
+          "type": "TEXT",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        }
+      ],
+      "indices": [],
+      "id": 1,
+      "x": -215.3638435835922,
+      "y": 217.87529324409672
+    },
+    {
+      "name": "materias",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "nome",
+          "type": "TEXT",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        }
+      ],
+      "indices": [],
+      "id": 2,
+      "x": -229.88712280785353,
+      "y": -225.10260050802876
+    },
+    {
+      "name": "referencias",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "titulo",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "texto",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        },
+        {
+          "name": "url_imagem",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 3
+        },
+        {
+          "name": "informacao_acesso",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 4
+        },
+        {
+          "name": "legenda",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 5
+        }
+      ],
+      "indices": [],
+      "id": 3,
+      "x": 961.3788454398865,
+      "y": -19.86187753407114
+    },
+    {
+      "name": "usuarios",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "nome",
+          "type": "TEXT",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "email",
+          "type": "TEXT",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        },
+        {
+          "name": "senha",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 3
+        },
+        {
+          "name": "perfil",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 4
+        }
+      ],
+      "indices": [],
+      "id": 4,
+      "x": -226.4372334521667,
+      "y": -62.620361486978936
+    },
+    {
+      "name": "provas",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "url_arquivo",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "nome",
+          "type": "TEXT",
+          "comment": "",
+          "unique": true,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        },
+        {
+          "name": "id_vestibular",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 3
+        },
+        {
+          "name": "instrucoes",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 4
+        }
+      ],
+      "indices": [],
+      "id": 5,
+      "x": 949.4356805725271,
+      "y": -279.83345996775074
+    },
+    {
+      "name": "questoes",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "id_prova",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "texto",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        }
+      ],
+      "indices": [],
+      "id": 6,
+      "x": 589.4238510087699,
+      "y": -348.2470342924034
+    },
+    {
+      "name": "alternativas",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "id_questao",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "nome",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        },
+        {
+          "name": "texto",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 3
+        },
+        {
+          "name": "correta",
+          "type": "BOOLEAN",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 4
+        }
+      ],
+      "indices": [],
+      "id": 7,
+      "x": 891.313353036027,
+      "y": 270.89581334570244
+    },
+    {
+      "name": "cursos_materias",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "id_curso",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "id_materia",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        },
+        {
+          "name": "peso",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 3
+        }
+      ],
+      "indices": [],
+      "id": 8,
+      "x": -581.28883430212,
+      "y": -59.191785306031704
+    },
+    {
+      "name": "questoes_materias",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "id_questao",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "id_materia",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        },
+        {
+          "name": "prioridade",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 3
+        }
+      ],
+      "indices": [],
+      "id": 9,
+      "x": 122.50120624301678,
+      "y": -252.46013277317525
+    },
+    {
+      "name": "questoes_referencias",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "id_questao",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "id_referencia",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        },
+        {
+          "name": "ordem",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 3
+        }
+      ],
+      "indices": [],
+      "id": 10,
+      "x": 571.4506824288225,
+      "y": -136.15705642126588
+    },
+    {
+      "name": "redacoes",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "instrucoes",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "id_prova",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        }
+      ],
+      "indices": [],
+      "id": 11,
+      "x": 1003.2967650334638,
+      "y": 575.3441165551208
+    },
+    {
+      "name": "redacoes_referencias",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "id_redacao",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "id_referencia",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        },
+        {
+          "name": "ordem",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 3
+        }
+      ],
+      "indices": [],
+      "id": 12,
+      "x": 1435.142847638106,
+      "y": 34.87687939036579
+    },
+    {
+      "name": "simulados",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "id_usuario",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "nome",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        },
+        {
+          "name": "data",
+          "type": "DATETIME",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 3
+        },
+        {
+          "name": "id_curso",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 4
+        },
+        {
+          "name": "nota",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 5
+        }
+      ],
+      "indices": [],
+      "id": 13,
+      "x": 115.601427531642,
+      "y": -2.750586488193335
+    },
+    {
+      "name": "simulados_questoes",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "id_simulado",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "id_questao",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        },
+        {
+          "name": "id_alternativa",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": false,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 3
+        }
+      ],
+      "indices": [],
+      "id": 14,
+      "x": 516.6614016901908,
+      "y": 101.58011435690162
+    },
+    {
+      "name": "simulados_redacoes",
+      "comment": "",
+      "color": "#175e7a",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": true,
+          "notNull": false,
+          "primary": true,
+          "default": "",
+          "check": "",
+          "id": 0
+        },
+        {
+          "name": "id_simulado",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 1
+        },
+        {
+          "name": "id_redacao",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 2
+        },
+        {
+          "name": "texto",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 3
+        },
+        {
+          "name": "nota",
+          "type": "INTEGER",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 4
+        },
+        {
+          "name": "observacoes",
+          "type": "TEXT",
+          "comment": "",
+          "unique": false,
+          "increment": false,
+          "notNull": true,
+          "primary": false,
+          "default": "",
+          "check": "",
+          "id": 5
+        }
+      ],
+      "indices": [],
+      "id": 15,
+      "x": 363.5714238190533,
+      "y": 351.28966064188364
+    }
+  ],
+  "relationships": [
+    {
+      "name": "possui",
+      "startTableId": 5,
+      "endTableId": 0,
+      "endFieldId": 0,
+      "startFieldId": 3,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 0
+    },
+    {
+      "name": "possui",
+      "startTableId": 6,
+      "endTableId": 5,
+      "endFieldId": 0,
+      "startFieldId": 1,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 1
+    },
+    {
+      "name": "possui",
+      "startTableId": 7,
+      "endTableId": 6,
+      "endFieldId": 0,
+      "startFieldId": 1,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 2
+    },
+    {
+      "name": "possui",
+      "startTableId": 8,
+      "endTableId": 1,
+      "endFieldId": 0,
+      "startFieldId": 1,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 3
+    },
+    {
+      "name": "possui",
+      "startTableId": 8,
+      "endTableId": 2,
+      "endFieldId": 0,
+      "startFieldId": 2,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 4
+    },
+    {
+      "name": "possui",
+      "startTableId": 9,
+      "endTableId": 6,
+      "endFieldId": 0,
+      "startFieldId": 1,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 5
+    },
+    {
+      "name": "possui",
+      "startTableId": 9,
+      "endTableId": 2,
+      "endFieldId": 0,
+      "startFieldId": 2,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 6
+    },
+    {
+      "name": "possui",
+      "startTableId": 10,
+      "endTableId": 6,
+      "endFieldId": 0,
+      "startFieldId": 1,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 7
+    },
+    {
+      "name": "possui",
+      "startTableId": 10,
+      "endTableId": 3,
+      "endFieldId": 0,
+      "startFieldId": 2,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 8
+    },
+    {
+      "name": "possui",
+      "startTableId": 11,
+      "endTableId": 5,
+      "endFieldId": 0,
+      "startFieldId": 2,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 9
+    },
+    {
+      "name": "possui",
+      "startTableId": 12,
+      "endTableId": 11,
+      "endFieldId": 0,
+      "startFieldId": 1,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 10
+    },
+    {
+      "name": "possui",
+      "startTableId": 12,
+      "endTableId": 3,
+      "endFieldId": 0,
+      "startFieldId": 2,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 11
+    },
+    {
+      "name": "possui",
+      "startTableId": 13,
+      "endTableId": 4,
+      "endFieldId": 0,
+      "startFieldId": 1,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 12
+    },
+    {
+      "name": "possui",
+      "startTableId": 13,
+      "endTableId": 1,
+      "endFieldId": 0,
+      "startFieldId": 4,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 13
+    },
+    {
+      "name": "possui",
+      "startTableId": 14,
+      "endTableId": 13,
+      "endFieldId": 0,
+      "startFieldId": 1,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 14
+    },
+    {
+      "name": "possui",
+      "startTableId": 14,
+      "endTableId": 6,
+      "endFieldId": 0,
+      "startFieldId": 2,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 15
+    },
+    {
+      "name": "possui",
+      "startTableId": 14,
+      "endTableId": 7,
+      "endFieldId": 0,
+      "startFieldId": 3,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 16
+    },
+    {
+      "name": "possui",
+      "startTableId": 15,
+      "endTableId": 13,
+      "endFieldId": 0,
+      "startFieldId": 1,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 17
+    },
+    {
+      "name": "possui",
+      "startTableId": 15,
+      "endTableId": 11,
+      "endFieldId": 0,
+      "startFieldId": 2,
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "cardinality": "many_to_one",
+      "id": 18
+    }
+  ],
+  "notes": [],
+  "subjectAreas": [],
+  "database": "sqlite",
+  "title": "Untitled Diagram"
+}
