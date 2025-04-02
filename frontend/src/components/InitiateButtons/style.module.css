@@ -1,5 +1,8 @@
 .container{
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
     width: 300px;
     height: 400px;
     border-radius: 15px;
@@ -7,7 +10,24 @@
     background: linear-gradient(to right, #FF3737, #2F0000, #FF3737);
 }
 
-.alternativas{
+.image{
     width: 90%;
-    height: 220px;
+    height: 180px;
+    margin-top: 1rem;
+}
+
+.text{
+    height: fit-content;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    color: #FFFFFF;
+    -webkit-text-stroke: 0.8px black;
+    
+}
+
+.initiate_button{
+    width: 240px;
+    height: 80px;
+    border-radius: 30px;
+    background-color: yellow;
 }
