@@ -1,5 +1,4 @@
 import styles from "./style.module.css"
-import alternativas from "../../assets/alternativas.png"
 
 interface Props{
     title: ""
