@@ -11,6 +11,13 @@ import { ProvaModule } from "./modules/prova/prova.module";
 import { QuestaoModule } from "./modules/questao/questao.module";
 import { QuestaoMateriaModule } from "./modules/questao-materia/questao-materia.module";
 import { QuestaoReferenciaModule } from "./modules/questao-referencia/questao-referencia.module";
+import { RedacaoModule } from "./modules/redacao/redacao.module";
+import { RedacaoReferenciaModule } from "./modules/redacao-referencia/redacao-referencia.module";
+import { ReferenciaModule } from "./modules/referencia/referencia.module";
+import { SimuladoModule } from "./modules/simulado/simulado.module";
+import { SimuladoQuestaoModule } from "./modules/simulado-questao/simulado-questao.module";
+import { SimuladoRedacaoModule } from "./modules/simulado-redacao/simulado-redacao.module";
+import { VestibularModule } from "./modules/vestibular/vestibular.module";
 
 @Module({
   imports: [
@@ -23,7 +30,14 @@ import { QuestaoReferenciaModule } from "./modules/questao-referencia/questao-re
     QuestaoMateriaModule,
     QuestaoModule,
     QuestaoReferenciaModule,
+    RedacaoModule,
+    RedacaoReferenciaModule,
+    ReferenciaModule,
+    SimuladoModule,
+    SimuladoQuestaoModule,
+    SimuladoRedacaoModule,
     UsuarioModule,
+    VestibularModule,
   ],
   controllers: [AppController],
   providers: [AppService],

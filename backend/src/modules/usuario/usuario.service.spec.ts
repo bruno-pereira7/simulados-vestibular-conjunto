@@ -22,6 +22,8 @@ describe("UsuarioService", () => {
     }).compile();
 
     usuarioService = moduleRef.get<UsuarioService>(UsuarioService);
+    databaseService = moduleRef.get<DatabaseModule>(DatabaseModule);
+    await moduleRef.init();
   });
 
   // describe("findAll", () => {
