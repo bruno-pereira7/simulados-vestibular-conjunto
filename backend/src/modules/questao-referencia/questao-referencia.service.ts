@@ -1,22 +1,22 @@
 import { Injectable } from "@nestjs/common";
 import { DatabaseService } from "../../common/database/database.service";
-import { ICrud } from "../../common/index.interface";
+import { ICrudService } from "../../common/index.interface";
 import { IQuestaoReferencia } from "./questao-referencia.interface";
 
 @Injectable()
 export class QuestaoReferenciaService
-  implements ICrud<IQuestaoReferencia, number>
+  implements ICrudService<IQuestaoReferencia, number>
 {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(data: IQuestaoReferencia): Promise<number> {
+  create(data: IQuestaoReferencia): Promise<boolean> {
     return this.databaseService.executeInsert({
       sql: "INSERT INTO questoes_referencias (id_questao, id_referencia, ordem) VALUES (?, ?, ?);",
       args: [data.id_questao, data.id_referencia, data.ordem],
     });
   }
 
-  delete(id: number): Promise<number> {
+  delete(id: number): Promise<boolean> {
     return this.databaseService.executeUpdate({
       sql: "DELETE FROM questoes_referencias WHERE id = ?;",
       args: [id],
@@ -29,7 +29,7 @@ export class QuestaoReferenciaService
     );
   }
 
-  async findOne(id: number): Promise<IQuestaoReferencia | null> {
+  async findOne(id: number): Promise<IQuestaoReferencia | object> {
     const results = await this.databaseService.executeQuery<IQuestaoReferencia>(
       {
         sql: "SELECT id, id_questao, id_referencia, ordem FROM questoes_referencias WHERE id = ?;",
@@ -40,11 +40,11 @@ export class QuestaoReferenciaService
     if (results.length > 0) {
       return results[0];
     } else {
-      return null;
+      return {};
     }
   }
 
-  update(id: number, data: IQuestaoReferencia): Promise<number> {
+  update(id: number, data: IQuestaoReferencia): Promise<boolean> {
     return this.databaseService.executeUpdate({
       sql: "UPDATE questoes_referencias SET id_questao = ?, id_referencia = ?, ordem = ? WHERE id = ?;",
       args: [data.id_questao, data.id_referencia, data.ordem, id],

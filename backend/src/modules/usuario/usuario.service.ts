@@ -1,21 +1,27 @@
 import { Injectable } from "@nestjs/common";
 import { DatabaseService } from "../../common/database/database.service";
-import { ICrud } from "../../common/index.interface";
+import { HashService } from "../../common/hash/hash.service";
+import { ICrudService } from "../../common/index.interface";
 import { CreateDto, GetDto } from "./usuario.dto";
 import { IUsuario } from "./usuario.interface";
 
 @Injectable()
-export class UsuarioService implements ICrud<IUsuario, number> {
-  constructor(private readonly databaseService: DatabaseService) {}
+export class UsuarioService implements ICrudService<IUsuario, number> {
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly hashService: HashService,
+  ) {}
 
-  create(data: CreateDto): Promise<number> {
+  async create(data: CreateDto): Promise<boolean> {
+    const senhaHash = await this.hashService.create(data.senha);
+
     return this.databaseService.executeInsert({
       sql: "INSERT INTO usuarios (nome, email, senha, perfil) VALUES (?, ?, ?, ?);",
-      args: [data.nome, data.email, data.senha, data.perfil],
+      args: [data.nome, data.email, senhaHash, data.perfil],
     });
   }
 
-  delete(id: number): Promise<number> {
+  delete(id: number): Promise<boolean> {
     return this.databaseService.executeUpdate({
       sql: "DELETE FROM usuarios WHERE id = ?;",
       args: [id],
@@ -28,10 +34,30 @@ export class UsuarioService implements ICrud<IUsuario, number> {
     );
   }
 
-  async findOne(id: number): Promise<GetDto | null> {
+  async findOne(id: number): Promise<GetDto | object> {
     const results = await this.databaseService.executeQuery<IUsuario>({
       sql: "SELECT id, nome, email, perfil FROM usuarios WHERE id = ?;",
       args: [id],
+    });
+
+    if (results.length > 0) {
+      return results[0];
+    } else {
+      return {};
+    }
+  }
+
+  update(id: number, data: IUsuario): Promise<boolean> {
+    return this.databaseService.executeUpdate({
+      sql: "UPDATE usuarios SET nome = ?, email = ?, senha = ?, perfil = ? WHERE id = ?;",
+      args: [data.nome, data.email, data.senha, data.perfil, id],
+    });
+  }
+
+  async findOneByEmail(email: IUsuario["email"]): Promise<IUsuario | null> {
+    const results = await this.databaseService.executeQuery<IUsuario>({
+      sql: "SELECT id, nome, email, perfil, senha FROM usuarios WHERE email = ?;",
+      args: [email],
     });
 
     if (results.length > 0) {
@@ -41,10 +67,7 @@ export class UsuarioService implements ICrud<IUsuario, number> {
     }
   }
 
-  update(id: number, data: IUsuario): Promise<number> {
-    return this.databaseService.executeUpdate({
-      sql: "UPDATE usuarios SET nome = ?, email = ?, senha = ?, perfil = ? WHERE id = ?;",
-      args: [data.nome, data.email, data.senha, data.perfil, id],
-    });
+  async validSenha(senha: string, senhaHash: string): Promise<boolean> {
+    return this.hashService.compare(senha, senhaHash);
   }
 }

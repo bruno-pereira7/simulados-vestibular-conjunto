@@ -1,20 +1,22 @@
 import { Injectable } from "@nestjs/common";
 import { DatabaseService } from "../../common/database/database.service";
-import { ICrud } from "../../common/index.interface";
+import { ICrudService } from "../../common/index.interface";
 import { IQuestaoMateria } from "./questao-materia.interface";
 
 @Injectable()
-export class QuestaoMateriaService implements ICrud<IQuestaoMateria, number> {
+export class QuestaoMateriaService
+  implements ICrudService<IQuestaoMateria, number>
+{
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(data: IQuestaoMateria): Promise<number> {
+  create(data: IQuestaoMateria): Promise<boolean> {
     return this.databaseService.executeInsert({
       sql: "INSERT INTO questoes_materias (id_questao, id_materia, prioridade) VALUES (?, ?, ?);",
       args: [data.id_questao, data.id_materia, data.prioridade],
     });
   }
 
-  delete(id: number): Promise<number> {
+  delete(id: number): Promise<boolean> {
     return this.databaseService.executeUpdate({
       sql: "DELETE FROM questoes_materias WHERE id = ?;",
       args: [id],
@@ -27,7 +29,7 @@ export class QuestaoMateriaService implements ICrud<IQuestaoMateria, number> {
     );
   }
 
-  async findOne(id: number): Promise<IQuestaoMateria | null> {
+  async findOne(id: number): Promise<IQuestaoMateria | object> {
     const results = await this.databaseService.executeQuery<IQuestaoMateria>({
       sql: "SELECT id, id_questao, id_materia, prioridade FROM questoes_materias WHERE id = ?;",
       args: [id],
@@ -36,11 +38,11 @@ export class QuestaoMateriaService implements ICrud<IQuestaoMateria, number> {
     if (results.length > 0) {
       return results[0];
     } else {
-      return null;
+      return {};
     }
   }
 
-  update(id: number, data: IQuestaoMateria): Promise<number> {
+  update(id: number, data: IQuestaoMateria): Promise<boolean> {
     return this.databaseService.executeUpdate({
       sql: "UPDATE questoes_materias SET id_questao = ?, id_materia = ?, prioridade = ? WHERE id = ?;",
       args: [data.id_questao, data.id_materia, data.prioridade, id],

@@ -3,45 +3,105 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   Post,
   Put,
 } from "@nestjs/common";
-import { ICrud } from "../../common/index.interface";
+import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
+import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { ISimuladoRedacao } from "./simulado-redacao.interface";
 import { SimuladoRedacaoService } from "./simulado-redacao.service";
 
 @Controller("simulados-redacoes")
 export class SimuladoRedacaoController
-  implements ICrud<ISimuladoRedacao, number>
+  implements ICrudController<ISimuladoRedacao, number>
 {
-  constructor(private readonly simuladoRedacaoService: SimuladoRedacaoService) {}
+  constructor(
+    private readonly simuladoRedacaoService: SimuladoRedacaoService,
+  ) {}
+
+  private readonly logger = new Logger(SimuladoRedacaoController.name, {
+    timestamp: true,
+  });
 
   @Post()
-  create(@Body() data: ISimuladoRedacao): Promise<number> {
-    return this.simuladoRedacaoService.create(data);
+  async create(@Body() data: ISimuladoRedacao): Promise<IApiResponse<boolean>> {
+    try {
+      await this.simuladoRedacaoService.create(data);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.CREATE.SUCCESS,
+        mensagem: "Simulado redação cadastrado com sucesso!",
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.CREATE.ERROR;
+    }
   }
 
   @Delete(":id")
-  delete(@Param("id") id: number): Promise<number> {
-    return this.simuladoRedacaoService.delete(id);
+  async delete(@Param("id") id: number): Promise<IApiResponse<boolean>> {
+    try {
+      await this.simuladoRedacaoService.delete(id);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.DELETE.SUCCESS,
+        mensagem: "Simulado redação excluído com sucesso!",
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.DELETE.ERROR;
+    }
   }
 
   @Get()
-  findAll(): Promise<Array<ISimuladoRedacao>> {
-    return this.simuladoRedacaoService.findAll();
+  async findAll(): Promise<IApiResponse<Array<ISimuladoRedacao>>> {
+    try {
+      const data = await this.simuladoRedacaoService.findAll();
+
+      return {
+        ...API_RESPONSE_CONSTANTS.FIND_ALL.SUCCESS,
+        dados: data,
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.FIND_ALL.ERROR;
+    }
   }
 
   @Get(":id")
-  findOne(@Param("id") id: number): Promise<ISimuladoRedacao | null> {
-    return this.simuladoRedacaoService.findOne(id);
+  async findOne(
+    @Param("id") id: number,
+  ): Promise<IApiResponse<ISimuladoRedacao | object>> {
+    try {
+      const data = await this.simuladoRedacaoService.findOne(id);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.FIND_ONE.SUCCESS,
+        dados: data,
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.FIND_ONE.ERROR;
+    }
   }
 
   @Put(":id")
-  update(
+  async update(
     @Param("id") id: number,
     @Body() data: ISimuladoRedacao,
-  ): Promise<number> {
-    return this.simuladoRedacaoService.update(id, data);
+  ): Promise<IApiResponse<boolean>> {
+    try {
+      await this.simuladoRedacaoService.update(id, data);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.UPDATE.SUCCESS,
+        mensagem: "Simulado redação alterado com sucesso!",
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.UPDATE.ERROR;
+    }
   }
 }

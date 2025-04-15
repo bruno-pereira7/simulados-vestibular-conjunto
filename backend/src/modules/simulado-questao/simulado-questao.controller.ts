@@ -3,45 +3,105 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   Post,
   Put,
 } from "@nestjs/common";
-import { ICrud } from "../../common/index.interface";
+import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
+import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { ISimuladoQuestao } from "./simulado-questao.interface";
 import { SimuladoQuestaoService } from "./simulado-questao.service";
 
 @Controller("simulados-questoes")
 export class SimuladoQuestaoController
-  implements ICrud<ISimuladoQuestao, number>
+  implements ICrudController<ISimuladoQuestao, number>
 {
-  constructor(private readonly simuladoQuestaoService: SimuladoQuestaoService) {}
+  constructor(
+    private readonly simuladoQuestaoService: SimuladoQuestaoService,
+  ) {}
+
+  private readonly logger = new Logger(SimuladoQuestaoController.name, {
+    timestamp: true,
+  });
 
   @Post()
-  create(@Body() data: ISimuladoQuestao): Promise<number> {
-    return this.simuladoQuestaoService.create(data);
+  async create(@Body() data: ISimuladoQuestao): Promise<IApiResponse<boolean>> {
+    try {
+      await this.simuladoQuestaoService.create(data);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.CREATE.SUCCESS,
+        mensagem: "Simulado questão cadastrado com sucesso!",
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.CREATE.ERROR;
+    }
   }
 
   @Delete(":id")
-  delete(@Param("id") id: number): Promise<number> {
-    return this.simuladoQuestaoService.delete(id);
+  async delete(@Param("id") id: number): Promise<IApiResponse<boolean>> {
+    try {
+      await this.simuladoQuestaoService.delete(id);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.DELETE.SUCCESS,
+        mensagem: "Simulado questão excluído com sucesso!",
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.DELETE.ERROR;
+    }
   }
 
   @Get()
-  findAll(): Promise<Array<ISimuladoQuestao>> {
-    return this.simuladoQuestaoService.findAll();
+  async findAll(): Promise<IApiResponse<Array<ISimuladoQuestao>>> {
+    try {
+      const data = await this.simuladoQuestaoService.findAll();
+
+      return {
+        ...API_RESPONSE_CONSTANTS.FIND_ALL.SUCCESS,
+        dados: data,
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.FIND_ALL.ERROR;
+    }
   }
 
   @Get(":id")
-  findOne(@Param("id") id: number): Promise<ISimuladoQuestao | null> {
-    return this.simuladoQuestaoService.findOne(id);
+  async findOne(
+    @Param("id") id: number,
+  ): Promise<IApiResponse<ISimuladoQuestao | object>> {
+    try {
+      const data = await this.simuladoQuestaoService.findOne(id);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.FIND_ONE.SUCCESS,
+        dados: data,
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.FIND_ONE.ERROR;
+    }
   }
 
   @Put(":id")
-  update(
+  async update(
     @Param("id") id: number,
     @Body() data: ISimuladoQuestao,
-  ): Promise<number> {
-    return this.simuladoQuestaoService.update(id, data);
+  ): Promise<IApiResponse<boolean>> {
+    try {
+      await this.simuladoQuestaoService.update(id, data);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.UPDATE.SUCCESS,
+        mensagem: "Simulado questão alterado com sucesso!",
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.UPDATE.ERROR;
+    }
   }
 }

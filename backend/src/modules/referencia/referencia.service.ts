@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { DatabaseService } from "../../common/database/database.service";
-import { ICrud } from "../../common/index.interface";
+import { ICrudService } from "../../common/index.interface";
 import { IReferencia } from "./referencia.interface";
 
 @Injectable()
-export class ReferenciaService implements ICrud<IReferencia, number> {
+export class ReferenciaService implements ICrudService<IReferencia, number> {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(data: IReferencia): Promise<number> {
+  create(data: IReferencia): Promise<boolean> {
     return this.databaseService.executeInsert({
       sql: "INSERT INTO referencias (titulo, texto, url_imagem, informacao_acesso, legenda) VALUES (?, ?, ?, ?, ?);",
       args: [
@@ -20,7 +20,7 @@ export class ReferenciaService implements ICrud<IReferencia, number> {
     });
   }
 
-  delete(id: number): Promise<number> {
+  delete(id: number): Promise<boolean> {
     return this.databaseService.executeUpdate({
       sql: "DELETE FROM referencias WHERE id = ?;",
       args: [id],
@@ -33,7 +33,7 @@ export class ReferenciaService implements ICrud<IReferencia, number> {
     );
   }
 
-  async findOne(id: number): Promise<IReferencia | null> {
+  async findOne(id: number): Promise<IReferencia | object> {
     const results = await this.databaseService.executeQuery<IReferencia>({
       sql: "SELECT id, titulo, texto, url_imagem, informacao_acesso, legenda FROM referencias WHERE id = ?;",
       args: [id],
@@ -42,11 +42,11 @@ export class ReferenciaService implements ICrud<IReferencia, number> {
     if (results.length > 0) {
       return results[0];
     } else {
-      return null;
+      return {};
     }
   }
 
-  update(id: number, data: IReferencia): Promise<number> {
+  update(id: number, data: IReferencia): Promise<boolean> {
     return this.databaseService.executeUpdate({
       sql: "UPDATE referencias SET titulo = ?, texto = ?, url_imagem = ?, informacao_acesso = ?, legenda = ? WHERE id = ?;",
       args: [

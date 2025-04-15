@@ -1,13 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import { DatabaseService } from "../../common/database/database.service";
-import { ICrud } from "../../common/index.interface";
+import { ICrudService } from "../../common/index.interface";
 import { ISimuladoRedacao } from "./simulado-redacao.interface";
 
 @Injectable()
-export class SimuladoRedacaoService implements ICrud<ISimuladoRedacao, number> {
+export class SimuladoRedacaoService
+  implements ICrudService<ISimuladoRedacao, number>
+{
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(data: ISimuladoRedacao): Promise<number> {
+  create(data: ISimuladoRedacao): Promise<boolean> {
     return this.databaseService.executeInsert({
       sql: "INSERT INTO simulados_redacoes (id_simulado, id_redacao, texto, nota, observacoes) VALUES (?, ?, ?, ?, ?);",
       args: [
@@ -20,7 +22,7 @@ export class SimuladoRedacaoService implements ICrud<ISimuladoRedacao, number> {
     });
   }
 
-  delete(id: number): Promise<number> {
+  delete(id: number): Promise<boolean> {
     return this.databaseService.executeUpdate({
       sql: "DELETE FROM simulados_redacoes WHERE id = ?;",
       args: [id],
@@ -33,7 +35,7 @@ export class SimuladoRedacaoService implements ICrud<ISimuladoRedacao, number> {
     );
   }
 
-  async findOne(id: number): Promise<ISimuladoRedacao | null> {
+  async findOne(id: number): Promise<ISimuladoRedacao | object> {
     const results = await this.databaseService.executeQuery<ISimuladoRedacao>({
       sql: "SELECT id, id_simulado, id_redacao, texto, nota, observacoes FROM simulados_redacoes WHERE id = ?;",
       args: [id],
@@ -42,11 +44,11 @@ export class SimuladoRedacaoService implements ICrud<ISimuladoRedacao, number> {
     if (results.length > 0) {
       return results[0];
     } else {
-      return null;
+      return {};
     }
   }
 
-  update(id: number, data: ISimuladoRedacao): Promise<number> {
+  update(id: number, data: ISimuladoRedacao): Promise<boolean> {
     return this.databaseService.executeUpdate({
       sql: "UPDATE simulados_redacoes SET id_simulado = ?, id_redacao = ?, texto = ?, nota = ?, observacoes = ? WHERE id = ?;",
       args: [

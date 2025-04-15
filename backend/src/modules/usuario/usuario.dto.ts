@@ -11,3 +11,8 @@ export class GetDto {
   nome: string;
   perfil: string;
 }
+
+export class LoginDto {
+  email: string;
+  senha: string;
+}

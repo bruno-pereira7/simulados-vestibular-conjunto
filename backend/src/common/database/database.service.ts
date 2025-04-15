@@ -19,9 +19,9 @@ export class DatabaseService implements OnModuleInit {
     return this.database;
   }
 
-  async executeInsert(stmt: InStatement): Promise<number> {
+  async executeInsert(stmt: InStatement): Promise<boolean> {
     const result = await this.database.execute(stmt);
-    return Number(result.lastInsertRowid);
+    return Number(result?.lastInsertRowid || 0) > 0;
   }
 
   async executeQuery<T>(stmt: InStatement): Promise<T[]> {
@@ -29,8 +29,8 @@ export class DatabaseService implements OnModuleInit {
     return result.rows as T[];
   }
 
-  async executeUpdate(stmt: InStatement): Promise<number> {
+  async executeUpdate(stmt: InStatement): Promise<boolean> {
     const result = await this.database.execute(stmt);
-    return result.rowsAffected;
+    return Number(result.rowsAffected) > 0;
   }
 }
