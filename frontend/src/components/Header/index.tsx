@@ -1,19 +1,22 @@
-import styles from "./style.module.css"
-import userImage from "../../assets/user.svg"
-import fatec from "../../assets/fatec.png"
+import userImage from "../../assets/user.svg";
+import fatec from "../../assets/fatec.png";
+import logo from "../../assets/logo.png"
 
-interface Props{
+interface Props { }
 
-}
+const Header = ({ }: Props) => {
+  return (
+    <div className="flex flex-row w-full h-20 bg-white shadow-md px-6 items-center justify-around mb-4">
+      <div className="flex items-center">
+        <img src={fatec} alt="Logo Fatec" className="h-14" />
+      </div>
+      <div className="flex items-center">
+        <img src={logo} alt="logo Fatecando" className="h-18" />
+      </div>
+      <img src={userImage} alt="Usuário" className="h-12 w-12 rounded-full border-2 border-blue-500 shadow-sm" />
+    </div>
 
-const Header =({}: Props) => {
-    return(
-        <div className={styles.header}>
-            <img src={fatec} className={styles.fatec_image} />
-            <p className={styles.central_text}>Teste Vestibular</p>
-            <img src={userImage} className={styles.user_image} />
-        </div>
-    )
-}
+  );
+};
 
-export default Header
+export default Header;
