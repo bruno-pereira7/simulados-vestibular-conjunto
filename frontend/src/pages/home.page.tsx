@@ -14,21 +14,21 @@ const cards = [
     description:
       "Treine com questões de múltipla escolha de vestibulares passados.",
     image: "https://cdn-icons-png.flaticon.com/512/3135/3135765.png",
-    link: "#",
+    link: "/questoes-alternativas",
   },
   {
     title: "Temas de Redação",
     description:
       "Explore temas anteriores e escreva redações como nos vestibulares.",
     image: "https://cdn-icons-png.flaticon.com/512/1055/1055644.png",
-    link: "#",
+    link: "/temas-redacao",
   },
   {
     title: "Vestibular Completo",
     description:
-      "Simule a prova completa com tempo cronometrado mmomo outjgfh hh.",
+      "Simule a ultima prova completa até o momento com tempo cronometrado",
     image: "https://cdn-icons-png.flaticon.com/512/1048/1048953.png",
-    link: "#",
+    link: "/vestibular-completo",
   },
 ];
 
@@ -36,10 +36,10 @@ const HomePage = () => {
   const [sloganIndex, setSloganIndex] = useState(2);
 
   useEffect(() => {
-    // const interval = setInterval(() => {
-    //   setSloganIndex((prev) => (prev + 1) % slogans.length);
-    // }, 3000);
-    // return () => clearInterval(interval);
+    const interval = setInterval(() => {
+      setSloganIndex((prev) => (prev + 1) % slogans.length);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -94,7 +94,7 @@ const HomePage = () => {
               preparado para conquistar sua vaga!
             </p>
             <a
-              href="#"
+              href="/provas-anteriores"
               className="inline-flex rounded-full bg-blue-500 px-8 py-3 text-lg font-semibold text-white transition hover:bg-blue-600"
             >
               Ver Provas
