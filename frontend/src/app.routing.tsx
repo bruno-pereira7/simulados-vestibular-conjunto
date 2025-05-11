@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from "react-router";
-import { HomeAdminPage } from "./pages/home-admin.component";
-import { HomeUsuarioPage } from "./pages/home-usuario.component";
-import HomePage from "./pages/home_component/home.component";
-import { LoginPage } from "./pages/login.component";
-import { NotFoundPage } from "./pages/not-found.component";
+import { HomeAdminPage } from "./pages/home-admin.page";
+import { HomeUsuarioPage } from "./pages/home-usuario.page";
+import HomePage from "./pages/home.page";
+import { LoginPage } from "./pages/login.page";
+import { NotFoundPage } from "./pages/not-found.page";
 import { authService } from "./services/auth.service";
 
 export const AppRouting = () => {
