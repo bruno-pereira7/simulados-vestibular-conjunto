@@ -9,6 +9,7 @@ import {
   Put,
 } from "@nestjs/common";
 import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
+import { Roles } from "../../common/decorators/role.decorator";
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { ISimuladoRedacao } from "./simulado-redacao.interface";
 import { SimuladoRedacaoService } from "./simulado-redacao.service";
@@ -26,6 +27,7 @@ export class SimuladoRedacaoController
   });
 
   @Post()
+  @Roles(["Aluno"])
   async create(@Body() data: ISimuladoRedacao): Promise<IApiResponse<boolean>> {
     try {
       await this.simuladoRedacaoService.create(data);
@@ -41,6 +43,7 @@ export class SimuladoRedacaoController
   }
 
   @Delete(":id")
+  @Roles(["Aluno"])
   async delete(@Param("id") id: number): Promise<IApiResponse<boolean>> {
     try {
       await this.simuladoRedacaoService.delete(id);
@@ -56,6 +59,7 @@ export class SimuladoRedacaoController
   }
 
   @Get()
+  @Roles(["Aluno"])
   async findAll(): Promise<IApiResponse<Array<ISimuladoRedacao>>> {
     try {
       const data = await this.simuladoRedacaoService.findAll();
@@ -71,6 +75,7 @@ export class SimuladoRedacaoController
   }
 
   @Get(":id")
+  @Roles(["Aluno"])
   async findOne(
     @Param("id") id: number,
   ): Promise<IApiResponse<ISimuladoRedacao | object>> {
@@ -88,6 +93,7 @@ export class SimuladoRedacaoController
   }
 
   @Put(":id")
+  @Roles(["Aluno"])
   async update(
     @Param("id") id: number,
     @Body() data: ISimuladoRedacao,

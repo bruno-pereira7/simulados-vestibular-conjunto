@@ -6,5 +6,5 @@ CREATE TABLE
     nome TEXT NOT NULL,
     texto TEXT NOT NULL,
     correta BOOLEAN NOT NULL,
-    FOREIGN KEY (id_questao) REFERENCES questoes(id)
+    FOREIGN KEY (id_questao) REFERENCES questoes (id)
   );

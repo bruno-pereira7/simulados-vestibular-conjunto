@@ -9,6 +9,7 @@ import {
   Put,
 } from "@nestjs/common";
 import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
+import { Roles } from "../../common/decorators/role.decorator";
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IAlternativa } from "./alternativa.interface";
 import { AlternativaService } from "./alternativa.service";
@@ -24,6 +25,7 @@ export class AlternativaController
   });
 
   @Post()
+  @Roles(["Administrador"])
   async create(@Body() data: IAlternativa): Promise<IApiResponse<boolean>> {
     try {
       await this.alternativaService.create(data);
@@ -39,6 +41,7 @@ export class AlternativaController
   }
 
   @Delete(":id")
+  @Roles(["Administrador"])
   async delete(@Param("id") id: number): Promise<IApiResponse<boolean>> {
     try {
       await this.alternativaService.delete(id);
@@ -86,6 +89,7 @@ export class AlternativaController
   }
 
   @Put(":id")
+  @Roles(["Administrador"])
   async update(
     @Param("id") id: number,
     @Body() data: IAlternativa,

@@ -12,6 +12,7 @@ import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.cons
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IProva } from "./prova.interface";
 import { ProvaService } from "./prova.service";
+import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("provas")
 export class ProvaController implements ICrudController<IProva, number> {
@@ -22,6 +23,7 @@ export class ProvaController implements ICrudController<IProva, number> {
   });
 
   @Post()
+  @Roles(["Administrador"])
   async create(@Body() data: IProva): Promise<IApiResponse<boolean>> {
     try {
       await this.provaService.create(data);
@@ -37,6 +39,7 @@ export class ProvaController implements ICrudController<IProva, number> {
   }
 
   @Delete(":id")
+  @Roles(["Administrador"])
   async delete(@Param("id") id: number): Promise<IApiResponse<boolean>> {
     try {
       await this.provaService.delete(id);
@@ -84,6 +87,7 @@ export class ProvaController implements ICrudController<IProva, number> {
   }
 
   @Put(":id")
+  @Roles(["Administrador"])
   async update(
     @Param("id") id: number,
     @Body() data: IProva,

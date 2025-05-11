@@ -43,6 +43,7 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
   }
 
   @Delete(":id")
+  @Roles(["Administrador"])
   async delete(@Param("id") id: number): Promise<IApiResponse<boolean>> {
     try {
       await this.usuarioService.delete(id);
@@ -58,7 +59,7 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
   }
 
   @Get()
-  @Roles(["admin"])
+  @Roles(["Administrador"])
   async findAll(): Promise<IApiResponse<Array<GetDto>>> {
     try {
       const data = await this.usuarioService.findAll();
@@ -74,6 +75,7 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
   }
 
   @Get(":id")
+  @Roles(["Administrador"])
   async findOne(
     @Param("id") id: number,
   ): Promise<IApiResponse<GetDto | object>> {
@@ -91,6 +93,7 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
   }
 
   @Put(":id")
+  @Roles(["Aluno"])
   async update(
     @Param("id") id: number,
     @Body() data: IUsuario,

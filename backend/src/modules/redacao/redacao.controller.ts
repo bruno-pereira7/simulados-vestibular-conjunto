@@ -12,6 +12,7 @@ import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.cons
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IRedacao } from "./redacao.interface";
 import { RedacaoService } from "./redacao.service";
+import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("redacoes")
 export class RedacaoController implements ICrudController<IRedacao, number> {
@@ -22,6 +23,7 @@ export class RedacaoController implements ICrudController<IRedacao, number> {
   });
 
   @Post()
+  @Roles(["Administrador"])
   async create(@Body() data: IRedacao): Promise<IApiResponse<boolean>> {
     try {
       await this.redacaoService.create(data);
@@ -37,6 +39,7 @@ export class RedacaoController implements ICrudController<IRedacao, number> {
   }
 
   @Delete(":id")
+  @Roles(["Administrador"])
   async delete(@Param("id") id: number): Promise<IApiResponse<boolean>> {
     try {
       await this.redacaoService.delete(id);
@@ -84,6 +87,7 @@ export class RedacaoController implements ICrudController<IRedacao, number> {
   }
 
   @Put(":id")
+  @Roles(["Administrador"])
   async update(
     @Param("id") id: number,
     @Body() data: IRedacao,

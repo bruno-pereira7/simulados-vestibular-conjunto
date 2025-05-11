@@ -5,5 +5,5 @@ CREATE TABLE
     nome TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
     senha TEXT NOT NULL,
-    perfil TEXT NOT NULL -- "Aluno", "Gerente", "Administrador"
+    perfil TEXT NOT NULL -- "Aluno", "Administrador"
   );

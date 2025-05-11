@@ -12,6 +12,7 @@ import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.cons
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IQuestaoMateria } from "./questao-materia.interface";
 import { QuestaoMateriaService } from "./questao-materia.service";
+import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("questoes-materias")
 export class QuestaoMateriaController
@@ -24,6 +25,7 @@ export class QuestaoMateriaController
   });
 
   @Post()
+  @Roles(["Administrador"])
   async create(@Body() data: IQuestaoMateria): Promise<IApiResponse<boolean>> {
     try {
       await this.questaoMateriaService.create(data);
@@ -39,6 +41,7 @@ export class QuestaoMateriaController
   }
 
   @Delete(":id")
+  @Roles(["Administrador"])
   async delete(@Param("id") id: number): Promise<IApiResponse<boolean>> {
     try {
       await this.questaoMateriaService.delete(id);
@@ -86,6 +89,7 @@ export class QuestaoMateriaController
   }
 
   @Put(":id")
+  @Roles(["Administrador"])
   async update(
     @Param("id") id: number,
     @Body() data: IQuestaoMateria,

@@ -12,6 +12,7 @@ import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.cons
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IVestibular } from "./vestibular.interface";
 import { VestibularService } from "./vestibular.service";
+import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("vestibulares")
 export class VestibularController
@@ -24,6 +25,7 @@ export class VestibularController
   });
 
   @Post()
+  @Roles(["Administrador"])
   async create(@Body() data: IVestibular): Promise<IApiResponse<boolean>> {
     try {
       await this.vestibularService.create(data);
@@ -39,6 +41,7 @@ export class VestibularController
   }
 
   @Delete(":id")
+  @Roles(["Administrador"])
   async delete(@Param("id") id: number): Promise<IApiResponse<boolean>> {
     try {
       await this.vestibularService.delete(id);
@@ -86,6 +89,7 @@ export class VestibularController
   }
 
   @Put(":id")
+  @Roles(["Administrador"])
   async update(
     @Param("id") id: number,
     @Body() data: IVestibular,

@@ -12,6 +12,7 @@ import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.cons
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { ISimulado } from "./simulado.interface";
 import { SimuladoService } from "./simulado.service";
+import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("simulados")
 export class SimuladoController implements ICrudController<ISimulado, number> {
@@ -22,6 +23,7 @@ export class SimuladoController implements ICrudController<ISimulado, number> {
   });
 
   @Post()
+  @Roles(["Aluno"])
   async create(@Body() data: ISimulado): Promise<IApiResponse<boolean>> {
     try {
       await this.simuladoService.create(data);
@@ -37,6 +39,7 @@ export class SimuladoController implements ICrudController<ISimulado, number> {
   }
 
   @Delete(":id")
+  @Roles(["Aluno"])
   async delete(@Param("id") id: number): Promise<IApiResponse<boolean>> {
     try {
       await this.simuladoService.delete(id);
@@ -52,6 +55,7 @@ export class SimuladoController implements ICrudController<ISimulado, number> {
   }
 
   @Get()
+  @Roles(["Aluno"])
   async findAll(): Promise<IApiResponse<Array<ISimulado>>> {
     try {
       const data = await this.simuladoService.findAll();
@@ -67,6 +71,7 @@ export class SimuladoController implements ICrudController<ISimulado, number> {
   }
 
   @Get(":id")
+  @Roles(["Aluno"])
   async findOne(
     @Param("id") id: number,
   ): Promise<IApiResponse<ISimulado | object>> {
@@ -84,6 +89,7 @@ export class SimuladoController implements ICrudController<ISimulado, number> {
   }
 
   @Put(":id")
+  @Roles(["Aluno"])
   async update(
     @Param("id") id: number,
     @Body() data: ISimulado,

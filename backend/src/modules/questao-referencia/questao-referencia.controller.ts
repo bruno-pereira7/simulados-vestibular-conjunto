@@ -12,6 +12,7 @@ import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.cons
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IQuestaoReferencia } from "./questao-referencia.interface";
 import { QuestaoReferenciaService } from "./questao-referencia.service";
+import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("questoes-referencias")
 export class QuestaoReferenciaController
@@ -26,6 +27,7 @@ export class QuestaoReferenciaController
   });
 
   @Post()
+  @Roles(["Administrador"])
   async create(
     @Body() data: IQuestaoReferencia,
   ): Promise<IApiResponse<boolean>> {
@@ -43,6 +45,7 @@ export class QuestaoReferenciaController
   }
 
   @Delete(":id")
+  @Roles(["Administrador"])
   async delete(@Param("id") id: number): Promise<IApiResponse<boolean>> {
     try {
       await this.questaoReferenciaService.delete(id);
@@ -90,6 +93,7 @@ export class QuestaoReferenciaController
   }
 
   @Put(":id")
+  @Roles(["Administrador"])
   async update(
     @Param("id") id: number,
     @Body() data: IQuestaoReferencia,

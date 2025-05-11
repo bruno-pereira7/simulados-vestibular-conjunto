@@ -56,3 +56,18 @@ export interface IApiResponseConstants {
     ERROR: IApiResponse<boolean>;
   };
 }
+
+export interface IConfiguration {
+  ENVIRONMENT: string;
+  JWT_SECRET: string;
+  PORT: number;
+}
+
+export interface IJwtPayload {
+  id: number;
+  email: string;
+  nome: string;
+  perfil: IPerfil;
+}
+
+export type IPerfil = "Administrador" | "Aluno";

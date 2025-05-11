@@ -1,10 +1,13 @@
 import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { APP_GUARD } from "@nestjs/core";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AuthModule } from "./common/auth/auth.module";
+import configuration from "./common/config/configuration";
 import { DatabaseModule } from "./common/database/database.module";
+import { RoleGuard } from "./common/guards/role.guard";
 import { HashModule } from "./common/hash/hash.module";
-import { PdfModule } from "./common/pdf/pdf.module";
 import { AlternativaModule } from "./modules/alternativa/alternativa.module";
 import { CursoMateriaModule } from "./modules/curso-materia/curso-materia.module";
 import { CursoModule } from "./modules/curso/curso.module";
@@ -24,6 +27,7 @@ import { VestibularModule } from "./modules/vestibular/vestibular.module";
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ load: [configuration], isGlobal: true }),
     AlternativaModule,
     CursoMateriaModule,
     CursoModule,
@@ -42,10 +46,16 @@ import { VestibularModule } from "./modules/vestibular/vestibular.module";
     UsuarioModule,
     VestibularModule,
     HashModule,
-    PdfModule,
+    // PdfModule,
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
+    },
+  ],
 })
 export class AppModule {}
