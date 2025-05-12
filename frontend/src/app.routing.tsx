@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router";
 import { HomeAdminPage } from "./pages/home-admin.page";
-import { HomeUsuarioPage } from "./pages/home-usuario.page";
+import HomeUsuario from "./pages/home-usuario.page";
 import HomePage from "./pages/home.page";
 import LoginPage from "./pages/login.page";
 import { NotFoundPage } from "./pages/not-found.page";
@@ -41,10 +41,11 @@ export const AppRouting = () => {
         <Route path="/temas-redacao" element={<TemasRedacao />} /> 
         <Route path="/vestibular-completo" element={<VestibularCompleto />} /> 
         <Route path="/provas-anteriores" element={<ProvasAnteriores />} /> 
+        <Route path="/perfil" element={<HomeUsuario />} /> 
       </Route>
       {/* <-------------------------------------------------- Rotas Públicas */}
       {/* <-------------------------------------------------- Rotas Usuários */}
-      <Route
+      {/* <Route
         path="/usuario/"
         element={
           <AuthenticatedRouter>
@@ -53,7 +54,7 @@ export const AppRouting = () => {
             </Routes>
           </AuthenticatedRouter>
         }
-      />
+      /> */}
       {/* <-------------------------------------------------- Rotas Usuários */}
       {/* <--------------------------------------------- Rotas Administrador */}
       <Route
