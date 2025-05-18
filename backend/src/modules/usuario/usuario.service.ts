@@ -1,4 +1,5 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
 import { DatabaseService } from "../../common/database/database.service";
 import { HashService } from "../../common/hash/hash.service";
 import { ICrudService } from "../../common/index.interface";
@@ -13,6 +14,21 @@ export class UsuarioService implements ICrudService<IUsuario, number> {
   ) {}
 
   async create(data: CreateDto): Promise<boolean> {
+    const results = await this.databaseService.executeQuery<IUsuario>({
+      sql: "SELECT id FROM usuarios WHERE email = ?;",
+      args: [data.email],
+    });
+
+    if (results.length > 0 && results[0].id) {
+      throw new HttpException(
+        {
+          ...API_RESPONSE_CONSTANTS.CREATE.WARNING,
+          mensagem: "E-mail já cadastrado!",
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     const senhaHash = await this.hashService.create(data.senha);
 
     return this.databaseService.executeInsert({
@@ -47,10 +63,27 @@ export class UsuarioService implements ICrudService<IUsuario, number> {
     }
   }
 
-  update(id: number, data: IUsuario): Promise<boolean> {
+  async update(id: number, data: IUsuario): Promise<boolean> {
+    const results = await this.databaseService.executeQuery<IUsuario>({
+      sql: "SELECT id FROM usuarios WHERE email = ? AND id != ?;",
+      args: [data.email, id],
+    });
+
+    if (results.length > 0 && results[0].id) {
+      throw new HttpException(
+        {
+          ...API_RESPONSE_CONSTANTS.CREATE.WARNING,
+          mensagem: "E-mail já cadastrado!",
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const senhaHash = await this.hashService.create(data.senha);
+
     return this.databaseService.executeUpdate({
       sql: "UPDATE usuarios SET nome = ?, email = ?, senha = ?, perfil = ? WHERE id = ?;",
-      args: [data.nome, data.email, data.senha, data.perfil, id],
+      args: [data.nome, data.email, senhaHash, data.perfil, id],
     });
   }
 

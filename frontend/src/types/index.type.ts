@@ -14,6 +14,10 @@ export interface ICrud<T, ID> {
   create: (data: Partial<T>) => Promise<AxiosResponse<IApiResponse<number>>>;
   delete: (id: ID) => Promise<AxiosResponse<IApiResponse<number>>>;
   findAll: () => Promise<AxiosResponse<IApiResponse<Array<Partial<T>>>>>;
-  findOne: (id: ID) => Promise<AxiosResponse<IApiResponse<Partial<T> | object>>>;
+  findOne: (
+    id: ID,
+  ) => Promise<AxiosResponse<IApiResponse<Partial<T> | object>>>;
   update: (id: ID, data: T) => Promise<AxiosResponse<IApiResponse<number>>>;
 }
+
+export type IPerfil = "Público" | "Aluno" | "Administrador";

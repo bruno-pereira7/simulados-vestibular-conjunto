@@ -5,7 +5,7 @@ interface CardProps {
   link: string;
 }
 
-const Card = ({ title, description, image, link }: CardProps) => {
+export const CardComponent = ({ title, description, image, link }: CardProps) => {
   return (
     <div className="flex h-fit w-full flex-col items-center justify-center gap-[1.5rem] rounded-2xl bg-white text-center shadow-lg transition-transform duration-300 hover:scale-105">
       <img src={image} alt={title} className="mt-4 h-24 w-24" />
@@ -20,5 +20,3 @@ const Card = ({ title, description, image, link }: CardProps) => {
     </div>
   );
 };
-
-export default Card;

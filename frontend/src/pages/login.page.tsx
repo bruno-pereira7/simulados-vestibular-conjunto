@@ -1,14 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { errorSwal } from "../services/api.service";
+import { authService } from "../services/auth.service";
+import { UsuarioService } from "../services/usuario.service";
 
-const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+interface ILoginForm {
+  email: string;
+  senha: string;
+}
 
-  const handleLogin = (e: React.FormEvent) => {
+export const LoginPage = () => {
+  const [loginForm, setLoginForm] = useState<ILoginForm>({
+    email: "",
+    senha: "",
+  });
+
+  const navigate = useNavigate();
+  const usuarioService = new UsuarioService();
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Aqui você pode chamar sua função de autenticação
-    console.log("Login com:", email, senha);
+
+    usuarioService
+      .login(loginForm)
+      .then(({ data: { dados } }) => {
+        localStorage.setItem("token", dados);
+
+        if (authService.isAuthenticatedAdmin()) {
+          navigate("/admin");
+        } else if (authService.isAuthenticated()) {
+          navigate("/aluno");
+        }
+      })
+      .catch(errorSwal);
   };
+
+  useEffect(() => {
+    if (authService.isAuthenticatedAdmin()) {
+      navigate("/admin");
+    } else if (authService.isAuthenticated()) {
+      navigate("/aluno");
+    }
+  }, [navigate]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#f5f7fa] to-[#c3cfe2] px-4">
@@ -19,43 +52,64 @@ const LoginPage = () => {
 
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <div className="flex flex-col">
-            <label htmlFor="email" className="mb-1 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
               E-mail
             </label>
             <input
               type="email"
               id="email"
-              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              value={loginForm.email}
+              onChange={({ target: { name, value } }) => {
+                setLoginForm((prevData) => ({
+                  ...prevData,
+                  [name]: value,
+                }));
+              }}
+              autoComplete="email"
               required
+              autoFocus
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="senha" className="mb-1 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="senha"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
               Senha
             </label>
             <input
               type="password"
               id="senha"
-              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
+              name="senha"
+              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              value={loginForm.senha}
+              onChange={({ target: { name, value } }) => {
+                setLoginForm((prevData) => ({
+                  ...prevData,
+                  [name]: value,
+                }));
+              }}
+              autoComplete="off"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="mt-4 w-full rounded-full bg-blue-500 px-4 py-2 text-white font-semibold transition hover:bg-blue-600"
+            className="mt-4 w-full rounded-full bg-blue-500 px-4 py-2 font-semibold text-white transition hover:bg-blue-600"
           >
             Entrar
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">
-          Ainda não tem uma conta?{" "}
+          Ainda não tem uma conta?
           <a href="/cadastro" className="text-blue-500 hover:underline">
             Cadastre-se
           </a>
@@ -64,5 +118,3 @@ const LoginPage = () => {
     </div>
   );
 };
-
-export default LoginPage;

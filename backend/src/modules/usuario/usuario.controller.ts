@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Logger,
   Param,
   Post,
@@ -30,6 +32,8 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
   @Post()
   async create(@Body() data: CreateDto): Promise<IApiResponse<boolean>> {
     try {
+      if (!data.perfil) data.perfil = "Aluno";
+
       await this.usuarioService.create(data);
 
       return {
@@ -37,6 +41,8 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
         mensagem: "Usuário cadastrado com sucesso!",
       };
     } catch (error) {
+      if (error instanceof HttpException) throw error;
+
       this.logger.error(error);
       return API_RESPONSE_CONSTANTS.CREATE.ERROR;
     }
@@ -53,6 +59,8 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
         mensagem: "Usuário excluído com sucesso!",
       };
     } catch (error) {
+      if (error instanceof HttpException) throw error;
+
       this.logger.error(error);
       return API_RESPONSE_CONSTANTS.DELETE.ERROR;
     }
@@ -69,6 +77,8 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
         dados: data,
       };
     } catch (error) {
+      if (error instanceof HttpException) throw error;
+
       this.logger.error(error);
       return API_RESPONSE_CONSTANTS.FIND_ALL.ERROR;
     }
@@ -87,6 +97,8 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
         dados: data,
       };
     } catch (error) {
+      if (error instanceof HttpException) throw error;
+
       this.logger.error(error);
       return API_RESPONSE_CONSTANTS.FIND_ONE.ERROR;
     }
@@ -106,6 +118,8 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
         mensagem: "Usuário alterado com sucesso!",
       };
     } catch (error) {
+      if (error instanceof HttpException) throw error;
+
       this.logger.error(error);
       return API_RESPONSE_CONSTANTS.UPDATE.ERROR;
     }
@@ -136,20 +150,28 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
             mensagem: "Login realizado com sucesso!",
           };
         } else {
-          return {
-            ...API_RESPONSE_CONSTANTS.CREATE.WARNING,
-            dados: "",
-            mensagem: "Senha incorreta!",
-          };
+          throw new HttpException(
+            {
+              ...API_RESPONSE_CONSTANTS.CREATE.WARNING,
+              dados: "",
+              mensagem: "Senha incorreta!",
+            },
+            HttpStatus.BAD_REQUEST,
+          );
         }
       } else {
-        return {
-          ...API_RESPONSE_CONSTANTS.CREATE.WARNING,
-          dados: "",
-          mensagem: "E-mail não cadastrado!",
-        };
+        throw new HttpException(
+          {
+            ...API_RESPONSE_CONSTANTS.CREATE.WARNING,
+            dados: "",
+            mensagem: "E-mail não cadastrado!",
+          },
+          HttpStatus.BAD_REQUEST,
+        );
       }
     } catch (error) {
+      if (error instanceof HttpException) throw error;
+
       this.logger.error(error);
       return { ...API_RESPONSE_CONSTANTS.CREATE.ERROR, dados: "" };
     }

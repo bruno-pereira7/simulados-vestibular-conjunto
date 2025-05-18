@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const questions = [
   {
@@ -15,7 +15,8 @@ const questions = [
   },
   {
     theme: "Português",
-    question: "Assinale a alternativa em que todas as palavras estão escritas corretamente:",
+    question:
+      "Assinale a alternativa em que todas as palavras estão escritas corretamente:",
     options: [
       "Excessão, enxergar, privilégio",
       "Exceção, enchergar, previlégio",
@@ -26,8 +27,10 @@ const questions = [
   },
 ];
 
-const VestibularCompleto = () => {
-  const [userAnswers, setUserAnswers] = useState<string[]>(Array(questions.length).fill(""));
+export const VestibularCompletoPage = () => {
+  const [userAnswers, setUserAnswers] = useState<string[]>(
+    Array(questions.length).fill(""),
+  );
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
 
@@ -78,8 +81,10 @@ const VestibularCompleto = () => {
     <div className="min-h-screen bg-gradient-to-b from-[#f5f7fa] to-[#c3cfe2] px-4 py-10">
       <div className="mx-auto flex max-w-4xl flex-col gap-8">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-gray-800">Simulado Completo - FATEC</h1>
-          <div className="rounded-full bg-black px-4 py-2 text-lg font-mono text-white shadow-md">
+          <h1 className="text-3xl font-bold text-gray-800">
+            Simulado Completo - FATEC
+          </h1>
+          <div className="rounded-full bg-black px-4 py-2 font-mono text-lg text-white shadow-md">
             ⏳ {formatTime(timeLeft)}
           </div>
         </div>
@@ -89,7 +94,7 @@ const VestibularCompleto = () => {
             key={index}
             className="rounded-xl bg-white p-6 shadow-md transition hover:scale-[1.01]"
           >
-            <div className="mb-2 inline-block rounded-full bg-gray-200 px-4 py-1 text-sm font-semibold text-gray-700 pointer-events-none">
+            <div className="pointer-events-none mb-2 inline-block rounded-full bg-gray-200 px-4 py-1 text-sm font-semibold text-gray-700">
               {q.theme}
             </div>
 
@@ -134,5 +139,3 @@ const VestibularCompleto = () => {
     </div>
   );
 };
-
-export default VestibularCompleto;

@@ -1,21 +1,57 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
+import { errorSwal } from "../services/api.service";
+import { authService } from "../services/auth.service";
+import { UsuarioService } from "../services/usuario.service";
 
-const CadastroPage = () => {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [confirmarSenha, setConfirmarSenha] = useState("");
+interface IRegisterForm {
+  email: string;
+  nome: string;
+  senha: string;
+  senhaConfirmacao?: string;
+}
 
-  const handleRegister = (e: React.FormEvent) => {
+export const CadastroPage = () => {
+  const [registerForm, setRegisterForm] = useState<IRegisterForm>({
+    email: "",
+    nome: "",
+    senha: "",
+    senhaConfirmacao: "",
+  });
+
+  const navigate = useNavigate();
+  const usuarioService = new UsuarioService();
+
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem.");
+    if (registerForm.senha !== registerForm.senhaConfirmacao) {
+      Swal.fire({
+        icon: "warning",
+        title: "Senhas não coincidem",
+        text: "As senhas informadas não coincidem. Por favor, verifique e tente novamente.",
+      });
       return;
     }
 
-    // Aqui você pode integrar com sua API de cadastro
-    console.log("Cadastro com:", nome, email, senha);
+    usuarioService
+      .create(registerForm)
+      .then(() => {
+        usuarioService
+          .login({ email: registerForm.email, senha: registerForm.senha })
+          .then(({ data: { dados } }) => {
+            localStorage.setItem("token", dados);
+
+            if (authService.isAuthenticatedAdmin()) {
+              navigate("/admin");
+            } else if (authService.isAuthenticated()) {
+              navigate("/aluno");
+            }
+          })
+          .catch(errorSwal);
+      })
+      .catch(errorSwal);
   };
 
   return (
@@ -27,64 +63,103 @@ const CadastroPage = () => {
 
         <form onSubmit={handleRegister} className="flex flex-col gap-4">
           <div className="flex flex-col">
-            <label htmlFor="nome" className="mb-1 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="nome"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
               Nome Completo
             </label>
             <input
-              type="text"
+              autoComplete="name"
+              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
               id="nome"
-              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
+              name="nome"
               required
+              value={registerForm.nome}
+              onChange={({ target: { name, value } }) => {
+                setRegisterForm((prevData) => ({
+                  ...prevData,
+                  [name]: value,
+                }));
+              }}
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="email" className="mb-1 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
               E-mail
             </label>
             <input
-              type="email"
+              autoComplete="email"
+              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
               id="email"
-              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
               required
+              type="email"
+              value={registerForm.email}
+              onChange={({ target: { name, value } }) => {
+                setRegisterForm((prevData) => ({
+                  ...prevData,
+                  [name]: value,
+                }));
+              }}
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="senha" className="mb-1 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="senha"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
               Senha
             </label>
             <input
-              type="password"
+              autoComplete="off"
+              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
               id="senha"
-              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
+              name="senha"
               required
+              type="password"
+              value={registerForm.senha}
+              onChange={({ target: { name, value } }) => {
+                setRegisterForm((prevData) => ({
+                  ...prevData,
+                  [name]: value,
+                }));
+              }}
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="confirmarSenha" className="mb-1 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="senhaConfirmacao"
+              className="mb-1 text-sm font-medium text-gray-700"
+            >
               Confirmar Senha
             </label>
             <input
               type="password"
-              id="confirmarSenha"
-              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              value={confirmarSenha}
-              onChange={(e) => setConfirmarSenha(e.target.value)}
+              id="senhaConfirmacao"
+              className="rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
               required
+              name="senhaConfirmacao"
+              value={registerForm.senhaConfirmacao}
+              autoComplete="off"
+              onChange={({ target: { name, value } }) => {
+                setRegisterForm((prevData) => ({
+                  ...prevData,
+                  [name]: value,
+                }));
+              }}
             />
           </div>
 
           <button
             type="submit"
-            className="mt-4 w-full rounded-full bg-blue-500 px-4 py-2 text-white font-semibold transition hover:bg-blue-600"
+            className="mt-4 w-full rounded-full bg-blue-500 px-4 py-2 font-semibold text-white transition hover:bg-blue-600"
           >
             Cadastrar
           </button>
@@ -100,5 +175,3 @@ const CadastroPage = () => {
     </div>
   );
 };
-
-export default CadastroPage;

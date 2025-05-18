@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import StudyingContainerImage from "../assets/StudyingContainerImg.png";
-import Card from "../components/card.component";
+import { CardComponent } from "../components/card.component";
 
 const slogans = [
   "Prepare-se para a FATEC com eficiência!",
@@ -32,7 +32,7 @@ const cards = [
   },
 ];
 
-const HomePage = () => {
+export const HomePage = () => {
   const [sloganIndex, setSloganIndex] = useState(2);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const HomePage = () => {
 
       <div className="flex w-full max-w-6xl flex-row gap-4 px-4">
         {cards.map((card, index) => (
-          <Card
+          <CardComponent
             key={index}
             title={card.title}
             description={card.description}
@@ -105,5 +105,3 @@ const HomePage = () => {
     </div>
   );
 };
-
-export default HomePage;

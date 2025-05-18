@@ -24,7 +24,7 @@ const questions = [
   },
 ];
 
-const QuestoesAlternativas = () => {
+export const QuestoesAlternativasPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
   const [score, setScore] = useState(0);
@@ -51,9 +51,9 @@ const QuestoesAlternativas = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#f5f7fa] to-[#c3cfe2] px-4 py-10">
-      <div className="w-full max-w-xl rounded-2xl bg-white shadow-xl p-6 flex flex-col gap-6">
+      <div className="flex w-full max-w-xl flex-col gap-6 rounded-2xl bg-white p-6 shadow-xl">
         {/* Tema da questão */}
-        <div className="self-start rounded-full bg-gray-200 px-4 py-1 text-sm font-semibold text-gray-700 pointer-events-none">
+        <div className="pointer-events-none self-start rounded-full bg-gray-200 px-4 py-1 text-sm font-semibold text-gray-700">
           {currentQuestion.theme}
         </div>
 
@@ -72,8 +72,8 @@ const QuestoesAlternativas = () => {
                   ? option === currentQuestion.answer
                     ? "border-green-500 bg-green-50"
                     : option === selectedOption
-                    ? "border-red-500 bg-red-50"
-                    : "border-gray-300"
+                      ? "border-red-500 bg-red-50"
+                      : "border-gray-300"
                   : "hover:border-blue-400"
               }`}
             >
@@ -96,14 +96,14 @@ const QuestoesAlternativas = () => {
             <button
               onClick={handleAnswer}
               disabled={!selectedOption}
-              className="rounded-full bg-blue-500 px-6 py-2 text-white font-semibold hover:bg-blue-600 disabled:opacity-50"
+              className="rounded-full bg-blue-500 px-6 py-2 font-semibold text-white hover:bg-blue-600 disabled:opacity-50"
             >
               Responder
             </button>
           ) : (
             <button
               onClick={handleNext}
-              className="rounded-full bg-green-500 px-6 py-2 text-white font-semibold hover:bg-green-600"
+              className="rounded-full bg-green-500 px-6 py-2 font-semibold text-white hover:bg-green-600"
             >
               Próxima
             </button>
@@ -112,11 +112,9 @@ const QuestoesAlternativas = () => {
       </div>
 
       {/* Pontuação abaixo do card */}
-      <div className="mt-6 text-lg text-gray-700 font-semibold">
+      <div className="mt-6 text-lg font-semibold text-gray-700">
         Acertos: {score} de {questions.length}
       </div>
     </div>
   );
 };
-
-export default QuestoesAlternativas;

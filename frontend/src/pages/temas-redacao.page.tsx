@@ -15,7 +15,7 @@ const themes = [
   },
 ];
 
-const TemasRedacao = () => {
+export const TemasRedacaoPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [essayText, setEssayText] = useState("");
 
@@ -28,24 +28,24 @@ const TemasRedacao = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-start bg-gradient-to-b from-[#f5f7fa] to-[#c3cfe2] px-4 py-10">
-      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-8 flex flex-col gap-6">
+      <div className="flex w-full max-w-4xl flex-col gap-6 rounded-2xl bg-white p-8 shadow-xl">
         {/* Informações da prova */}
         <div className="text-sm font-medium text-gray-500">
           {currentTheme.exam}
         </div>
 
         {/* Título do tema */}
-        <div className="rounded-full bg-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 self-start pointer-events-none">
+        <div className="pointer-events-none self-start rounded-full bg-gray-200 px-4 py-2 text-sm font-semibold text-gray-700">
           Tema da Redação
         </div>
 
-        <h2 className="text-2xl font-bold text-gray-800 leading-snug">
+        <h2 className="text-2xl leading-snug font-bold text-gray-800">
           {currentTheme.theme}
         </h2>
 
         {/* Campo de texto */}
         <textarea
-          className="min-h-[300px] w-full resize-none rounded-lg border border-gray-300 p-4 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="min-h-[300px] w-full resize-none rounded-lg border border-gray-300 p-4 text-gray-700 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
           placeholder="Escreva sua redação aqui..."
           value={essayText}
           onChange={(e) => setEssayText(e.target.value)}
@@ -55,12 +55,12 @@ const TemasRedacao = () => {
         <div className="flex justify-between">
           <button
             onClick={handleNextTheme}
-            className="rounded-full bg-blue-500 px-6 py-2 text-white font-semibold hover:bg-blue-600"
+            className="rounded-full bg-blue-500 px-6 py-2 font-semibold text-white hover:bg-blue-600"
           >
             Novo Tema
           </button>
 
-          <span className="text-gray-500 self-center text-sm italic">
+          <span className="self-center text-sm text-gray-500 italic">
             Dica: pratique em até 30 minutos para simular o vestibular.
           </span>
         </div>
@@ -68,5 +68,3 @@ const TemasRedacao = () => {
     </div>
   );
 };
-
-export default TemasRedacao;

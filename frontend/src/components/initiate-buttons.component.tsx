@@ -3,7 +3,7 @@ interface Props {
   imageURL: string;
 }
 
-const InitiateButton = ({ title, imageURL }: Props) => {
+export const InitiateButtonComponent = ({ title, imageURL }: Props) => {
   return (
     <div className="flex h-[440px] w-[320px] flex-col items-center gap-4 rounded-[20px] border-4 border-white bg-gradient-to-br from-[#FF4E4E] via-[#2F0000] to-[#FF4E4E] shadow-xl transition-transform duration-300 hover:scale-105">
       <img
@@ -22,5 +22,3 @@ const InitiateButton = ({ title, imageURL }: Props) => {
     </div>
   );
 };
-
-export default InitiateButton;
