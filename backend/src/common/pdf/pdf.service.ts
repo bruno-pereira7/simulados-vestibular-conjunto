@@ -1,16 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { readFileSync, writeFileSync } from "fs";
-import { resolve } from "path";
 import { getDocument } from "pdfjs-dist";
 import { TextItem } from "pdfjs-dist/types/src/display/api";
 
-const pdfPath = resolve(__dirname, "prova.pdf");
-
 @Injectable()
 export class PdfService {
-  async loadPdf() {
+  async extractPdf(path: string): Promise<void> {
     try {
-      const pdfData = new Uint8Array(readFileSync(pdfPath));
+      const pdfData = new Uint8Array(readFileSync(path));
       const pdfDocument = await getDocument({ data: pdfData }).promise;
 
       let content = "";
@@ -31,22 +28,19 @@ export class PdfService {
           };
         });
 
-        // Sort by Y (descending) and then by X (ascending)
         items.sort((a, b) => {
           if (b.y === a.y) {
-            return a.x - b.x; // Sort by X if Y is the same
+            return a.x - b.x;
           }
-          return b.y - a.y; // Sort by Y (descending)
+          return b.y - a.y;
         });
 
-        // Group text by lines (adjust threshold as needed)
         const lines: Array<string> = [];
         let currentLine: Array<string> = [];
         let lastY: number | null = null;
 
         items.forEach((item) => {
           if (lastY === null || Math.abs(lastY - item.y) < 5) {
-            // Adjust threshold
             currentLine.push(item.text);
           } else {
             lines.push(currentLine.join(""));

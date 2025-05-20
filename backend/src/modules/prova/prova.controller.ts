@@ -7,12 +7,15 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
+  UseInterceptors,
 } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
 import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
+import { Roles } from "../../common/decorators/role.decorator";
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IProva } from "./prova.interface";
 import { ProvaService } from "./prova.service";
-import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("provas")
 export class ProvaController implements ICrudController<IProva, number> {
@@ -102,6 +105,23 @@ export class ProvaController implements ICrudController<IProva, number> {
     } catch (error) {
       this.logger.error(error);
       return API_RESPONSE_CONSTANTS.UPDATE.ERROR;
+    }
+  }
+
+  @Post("extract-pdf")
+  @Roles(["Administrador"])
+  @UseInterceptors(FileInterceptor("file"))
+  async extractPdf(@UploadedFile() file: Express.Multer.File) {
+    try {
+      await this.provaService.extractPdf(file.path);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.CREATE.SUCCESS,
+        mensagem: "Prova cadastrada com sucesso!",
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.CREATE.ERROR;
     }
   }
 }

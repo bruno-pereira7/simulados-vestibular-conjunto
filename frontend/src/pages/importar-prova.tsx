@@ -1,3 +1,7 @@
 export const ImportarProvaPage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <input type="file" accept=".pdf" />
+    </div>
+  );
 };

@@ -1,11 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import { DatabaseService } from "../../common/database/database.service";
 import { ICrudService } from "../../common/index.interface";
+import { PdfService } from "../../common/pdf/pdf.service";
 import { IProva } from "./prova.interface";
 
 @Injectable()
 export class ProvaService implements ICrudService<IProva, number> {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly pdfService: PdfService,
+  ) {}
 
   create(data: IProva): Promise<boolean> {
     return this.databaseService.executeInsert({
@@ -51,5 +55,9 @@ export class ProvaService implements ICrudService<IProva, number> {
         id,
       ],
     });
+  }
+
+  extractPdf(path: string): Promise<void> {
+    return this.pdfService.extractPdf(path);
   }
 }
