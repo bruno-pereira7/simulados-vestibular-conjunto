@@ -1,16 +1,20 @@
 import { Navigate, Route, Routes } from "react-router";
 import { OutletComponent } from "./components/outlet.component";
 import { CadastroPage } from "./pages/cadastro.page";
+import { CursoPage } from "./pages/curso.page";
 import { HomeAdminPage } from "./pages/home-admin.page";
 import { HomeUsuarioPage } from "./pages/home-usuario.page";
 import { HomePage } from "./pages/home.page";
 import { ImportarProvaPage } from "./pages/importar-prova";
 import { LoginPage } from "./pages/login.page";
 import { NotFoundPage } from "./pages/not-found.page";
+import { ProvaPage } from "./pages/prova.page";
 import { ProvasAnterioresPage } from "./pages/provas-anteriores.page";
 import { QuestoesAlternativasPage } from "./pages/questoes-alternativas.page";
 import { TemasRedacaoPage } from "./pages/temas-redacao.page";
+import { UsuarioPage } from "./pages/usuario.page";
 import { VestibularCompletoPage } from "./pages/vestibular-completo.page";
+import { VestibularPage } from "./pages/vestibular.page";
 import { authService } from "./services/auth.service";
 import { IPerfil } from "./types/index.type";
 
@@ -87,6 +91,22 @@ export const AppRouting = () => {
               <Route
                 path="importar-prova"
                 element={renderTags(<ImportarProvaPage />, "Administrador")}
+              />
+              <Route
+                path="usuarios"
+                element={renderTags(<UsuarioPage />, "Administrador")}
+              />
+              <Route
+                path="cursos"
+                element={renderTags(<CursoPage />, "Administrador")}
+              />
+              <Route
+                path="provas"
+                element={renderTags(<ProvaPage />, "Administrador")}
+              />
+              <Route
+                path="vestibulares"
+                element={renderTags(<VestibularPage />, "Administrador")}
               />
             </Routes>
           </AuthenticatedAdminRouter>

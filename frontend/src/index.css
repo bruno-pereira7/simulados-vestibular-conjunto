@@ -4,3 +4,24 @@
 * {
   box-sizing: border-box;
 }
+
+table {
+  background-color: #c3cfe2;
+  border-radius: 0.5rem;
+}
+
+table > thead > tr > th,
+table > tbody > tr > td {
+  text-align: left;
+  border-width: 1px;
+  padding: 0.5rem;
+  border-color: #fff;
+}
+
+table > tbody > tr > td:has(button) {
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}
