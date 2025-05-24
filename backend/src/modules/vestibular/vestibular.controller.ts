@@ -9,10 +9,10 @@ import {
   Put,
 } from "@nestjs/common";
 import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
+import { Roles } from "../../common/decorators/role.decorator";
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IVestibular } from "./vestibular.interface";
 import { VestibularService } from "./vestibular.service";
-import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("vestibulares")
 export class VestibularController

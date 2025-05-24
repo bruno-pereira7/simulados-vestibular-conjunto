@@ -9,10 +9,10 @@ import {
   Put,
 } from "@nestjs/common";
 import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
+import { Roles } from "../../common/decorators/role.decorator";
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { ICurso } from "./curso.interface";
 import { CursoService } from "./curso.service";
-import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("cursos")
 export class CursoController implements ICrudController<ICurso, number> {

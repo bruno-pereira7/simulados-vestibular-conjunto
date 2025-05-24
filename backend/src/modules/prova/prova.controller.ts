@@ -124,4 +124,21 @@ export class ProvaController implements ICrudController<IProva, number> {
       return API_RESPONSE_CONSTANTS.CREATE.ERROR;
     }
   }
+
+  @Get("vestibulares/:id")
+  async findAllByVestibularId(
+    @Param("id") id: number,
+  ): Promise<IApiResponse<Array<IProva>>> {
+    try {
+      const data = await this.provaService.findAllByVestibularId(id);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.FIND_ALL.SUCCESS,
+        dados: data,
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.FIND_ALL.ERROR;
+    }
+  }
 }

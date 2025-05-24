@@ -34,4 +34,10 @@ export class ProvaService implements ICrud<IProva, number> {
       formData,
     );
   }
+
+  findAllByVestibularId(id: number) {
+    return apiService.get<IApiResponse<Array<IProva>>>(
+      `${this.rootUrl}/vestibulares/${id}`,
+    );
+  }
 }

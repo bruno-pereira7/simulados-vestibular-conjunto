@@ -9,10 +9,10 @@ import {
   Put,
 } from "@nestjs/common";
 import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
+import { Roles } from "../../common/decorators/role.decorator";
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IRedacao } from "./redacao.interface";
 import { RedacaoService } from "./redacao.service";
-import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("redacoes")
 export class RedacaoController implements ICrudController<IRedacao, number> {
@@ -102,6 +102,23 @@ export class RedacaoController implements ICrudController<IRedacao, number> {
     } catch (error) {
       this.logger.error(error);
       return API_RESPONSE_CONSTANTS.UPDATE.ERROR;
+    }
+  }
+
+  @Get("provas/:id")
+  async findOneByProvaId(
+    @Param("id") id: number,
+  ): Promise<IApiResponse<IRedacao | object>> {
+    try {
+      const data = await this.redacaoService.findOneByProvaId(id);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.FIND_ONE.SUCCESS,
+        dados: data,
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return API_RESPONSE_CONSTANTS.FIND_ONE.ERROR;
     }
   }
 }

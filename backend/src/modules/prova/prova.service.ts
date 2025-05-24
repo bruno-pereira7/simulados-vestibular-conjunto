@@ -60,4 +60,11 @@ export class ProvaService implements ICrudService<IProva, number> {
   extractPdf(path: string): Promise<void> {
     return this.pdfService.extractPdf(path);
   }
+
+  findAllByVestibularId(id: number): Promise<Array<IProva>> {
+    return this.databaseService.executeQuery<IProva>({
+      sql: "SELECT id, url_arquivo, nome, id_vestibular, instrucoes FROM provas WHERE id_vestibular = ?;",
+      args: [id],
+    });
+  }
 }

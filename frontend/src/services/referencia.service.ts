@@ -1,11 +1,11 @@
-import { ICurso } from "../types/curso.type";
 import { IApiResponse, ICrud } from "../types/index.type";
+import { IReferencia } from "../types/referencia.type";
 import { apiService } from "./api.service";
 
-export class CursoService implements ICrud<ICurso, number> {
-  private readonly rootUrl = "/cursos";
+export class ReferenciaService implements ICrud<IReferencia, number> {
+  private readonly rootUrl = "/referencias";
 
-  create(data: Partial<ICurso>) {
+  create(data: Partial<IReferencia>) {
     return apiService.post<IApiResponse<number>>(`${this.rootUrl}`, data);
   }
 
@@ -14,14 +14,14 @@ export class CursoService implements ICrud<ICurso, number> {
   }
 
   findAll() {
-    return apiService.get<IApiResponse<Array<ICurso>>>(`${this.rootUrl}`);
+    return apiService.get<IApiResponse<Array<IReferencia>>>(`${this.rootUrl}`);
   }
 
   findOne(id: number) {
-    return apiService.get<IApiResponse<ICurso>>(`${this.rootUrl}/${id}`);
+    return apiService.get<IApiResponse<IReferencia>>(`${this.rootUrl}/${id}`);
   }
 
-  update(id: number, data: ICurso) {
+  update(id: number, data: IReferencia) {
     return apiService.put<IApiResponse<number>>(`${this.rootUrl}/${id}`, data);
   }
 }

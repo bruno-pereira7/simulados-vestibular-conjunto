@@ -46,4 +46,17 @@ export class RedacaoService implements ICrudService<IRedacao, number> {
       args: [data.instrucoes, data.id_prova, id],
     });
   }
+
+  async findOneByProvaId(id: number): Promise<IRedacao | object> {
+    const results = await this.databaseService.executeQuery<IRedacao>({
+      sql: "SELECT id, instrucoes, id_prova FROM redacoes WHERE id_prova = ?;",
+      args: [id],
+    });
+
+    if (results.length > 0) {
+      return results[0];
+    } else {
+      return {};
+    }
+  }
 }

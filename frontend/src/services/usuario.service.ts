@@ -18,10 +18,10 @@ export class UsuarioService implements ICrud<IUsuario, number> {
   }
 
   findOne(id: number) {
-    return apiService.post<IApiResponse<IUsuario>>(`${this.rootUrl}/${id}`);
+    return apiService.get<IApiResponse<IUsuario>>(`${this.rootUrl}/${id}`);
   }
 
-  update(id: number, data: IUsuario) {
+  update(id: number, data: Partial<IUsuario>) {
     return apiService.put<IApiResponse<number>>(`${this.rootUrl}/${id}`, data);
   }
 
