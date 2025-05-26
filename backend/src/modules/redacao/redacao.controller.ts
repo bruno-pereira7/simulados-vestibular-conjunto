@@ -145,6 +145,4 @@ export class RedacaoController implements ICrudController<IRedacao, number> {
       }
     }
   }
-
-  
 }
