@@ -13,10 +13,14 @@ import { Roles } from "../../common/decorators/role.decorator";
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IRedacao } from "./redacao.interface";
 import { RedacaoService } from "./redacao.service";
+import { DeepseekService } from "../deepseek/deepseek.service";
 
 @Controller("redacoes")
 export class RedacaoController implements ICrudController<IRedacao, number> {
-  constructor(private readonly redacaoService: RedacaoService) {}
+  constructor(
+    private readonly redacaoService: RedacaoService,
+    private readonly deepseekService: DeepseekService
+  ) {}
 
   private readonly logger = new Logger(RedacaoController.name, {
     timestamp: true,
@@ -121,4 +125,26 @@ export class RedacaoController implements ICrudController<IRedacao, number> {
       return API_RESPONSE_CONSTANTS.FIND_ONE.ERROR;
     }
   }
+
+  @Post("corrigir")
+  async corrigir(@Body("texto") texto: string){
+    try {
+      const correcao = await this.deepseekService.corrigirRedacao(texto)
+
+      return {
+        sucesso: true,
+        mensagem: "Redação corrigida com sucesso",
+        dados: correcao,
+      }
+    }
+    catch(erro){
+      this.logger.error(erro)
+      return {
+        sucesso:false,
+        mensagem: "Erro ao corrigir redação"
+      }
+    }
+  }
+
+  
 }
