@@ -12,7 +12,7 @@ const PROMPT_BASE = `Você é um corretor experiente de redações para vestibul
 
 Ao corrigir, faça uma análise detalhada dos pontos fortes e fracos do texto, destacando erros e acertos em cada critério.
 
-Por fim, dê uma nota final de 0 a 10, considerando todos os aspectos acima.
+Por fim, dê uma nota final de 0 a 1000, considerando todos os aspectos acima.
 
 ---
 
